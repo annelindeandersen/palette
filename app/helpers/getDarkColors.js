@@ -3,6 +3,9 @@
 // Saturation is a percentage value. 
 // 0% means a shade of gray, and 100% is the full color.
 
+import { getComplimentary } from "./getComplimentary";
+import { getHEX } from "./getHEX";
+
 export const getDarkColors = (h, s, l, index) => {
   l -= (l / 8 * index);
   l = Math.min(100, Math.max(0, l)); // Ensure lightness value stays within 0-100 range
@@ -23,5 +26,15 @@ export const getDarkColors = (h, s, l, index) => {
     s = Math.min(100, Math.max(1, s)); // Ensure lightness value stays within 1-100 range
   }
 
-  return `hsl(${Math.ceil(h)}, ${Math.ceil(s)}%, ${Math.ceil(l)}%)`;
+  // We want indexes output in Tailwind fashion: 600, 700, 800, 900, 950
+  const tailwindName = index === 5 ? 950 : (index + 5) * 100;
+  const complimentary = getComplimentary(l);
+  const hex = getHEX(h,s,l);
+
+  return { 
+    name: tailwindName, 
+    hsl: `hsl(${Math.ceil(h)}, ${Math.ceil(s)}%, ${Math.ceil(l)}%)`,
+    hex: hex,
+    complimentaryColor: complimentary
+  }
   };
