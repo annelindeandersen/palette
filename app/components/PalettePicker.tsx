@@ -10,8 +10,8 @@ export const PalettePicker = (): ReactNode => {
     const [primaryColor, setPrimaryColor] = useState<HEX>('#008591');
     const [secondaryColor, setSecondaryColor] = useState<HEX>('#FF97B7');
 
-    const HSLPrimary = getHSL(primaryColor);
-    const HSLSecondary = getHSL(secondaryColor);
+    const HSLPrimary = primaryColor && getHSL(primaryColor);
+    const HSLSecondary = secondaryColor && getHSL(secondaryColor);
 
     const primaryPalette: Palette[] = getPalette(HSLPrimary);
     const secondaryPalette: Palette[] = getPalette(HSLSecondary);
@@ -25,20 +25,22 @@ export const PalettePicker = (): ReactNode => {
                     <input type="color" value={primaryColor} onChange={(e) => setPrimaryColor(e.target.value)} className="h-20 shrink-0 cursor-pointer"/>
                 </ColorSelectorWrapper>
             </div>
-            <PaletteWrapper>
-                {primaryPalette && Object.keys(primaryPalette).map((item) => 
-                    <div key={primaryPalette[item].name}>
-                        <ColorContainer item={primaryPalette[item]}>
-                            <span className="bg-white p-2">
-                                <p>{primaryPalette[item].name}</p>
-                                <p className="text-gray-400 text-xs">{primaryPalette[item].hex}</p>
-                                <p className="text-gray-400 text-xs">{primaryPalette[item].rgb}</p>
-                                <p className="text-gray-400 text-xs">{primaryPalette[item].hsl}</p>
-                            </span>
-                        </ColorContainer>
-                    </div>
-                )}
-            </PaletteWrapper>
+            {primaryPalette && primaryColor && 
+                <PaletteWrapper>
+                    {Object.keys(primaryPalette).map((item) => 
+                        <div key={primaryPalette[item].name}>
+                            <ColorContainer item={primaryPalette[item]}>
+                                <span className="bg-white p-2">
+                                    <p>{primaryPalette[item].name}</p>
+                                    <p className="text-gray-400 text-xs">{primaryPalette[item].hex}</p>
+                                    <p className="text-gray-400 text-xs">{primaryPalette[item].rgb}</p>
+                                    <p className="text-gray-400 text-xs">{primaryPalette[item].hsl}</p>
+                                </span>
+                            </ColorContainer>
+                        </div>
+                    )}
+                </PaletteWrapper>
+            }
         </PaletteSection>
 
         <PaletteSection>
@@ -48,20 +50,22 @@ export const PalettePicker = (): ReactNode => {
                     <input type="color" value={secondaryColor} onChange={(e) => setSecondaryColor(e.target.value)} className="h-20 shrink-0 cursor-pointer"/>
                 </ColorSelectorWrapper>
             </div>
-            <PaletteWrapper>
-                {secondaryPalette && Object.keys(secondaryPalette).map(item => 
-                    <div key={secondaryPalette[item].name}>
-                        <ColorContainer item={secondaryPalette[item]}>
-                            <span className="bg-white p-2">
-                                <p>{secondaryPalette[item].name}</p>
-                                <p className="text-gray-400 text-xs">{secondaryPalette[item].hex}</p>
-                                <p className="text-gray-400 text-xs">{secondaryPalette[item].rgb}</p>
-                                <p className="text-gray-400 text-xs">{secondaryPalette[item].hsl}</p>
-                            </span>
-                        </ColorContainer>
-                    </div>
-                )}
-            </PaletteWrapper>
+            {secondaryColor && secondaryPalette &&
+                <PaletteWrapper>
+                    {secondaryPalette && Object.keys(secondaryPalette).map(item => 
+                        <div key={secondaryPalette[item].name}>
+                            <ColorContainer item={secondaryPalette[item]}>
+                                <span className="bg-white p-2">
+                                    <p>{secondaryPalette[item].name}</p>
+                                    <p className="text-gray-400 text-xs">{secondaryPalette[item].hex}</p>
+                                    <p className="text-gray-400 text-xs">{secondaryPalette[item].rgb}</p>
+                                    <p className="text-gray-400 text-xs">{secondaryPalette[item].hsl}</p>
+                                </span>
+                            </ColorContainer>
+                        </div>
+                    )}
+                </PaletteWrapper>
+            }
         </PaletteSection>
       </>
   )
