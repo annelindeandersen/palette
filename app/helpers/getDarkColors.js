@@ -4,7 +4,7 @@
 // 0% means a shade of gray, and 100% is the full color.
 
 import { getComplimentary } from "./getComplimentary";
-import { getHEX } from "./getHEX";
+import { getHEX, getRGB } from "./getHEX";
 
 export const getDarkColors = (h, s, l, index) => {
   l -= (l / 8 * index);
@@ -28,13 +28,15 @@ export const getDarkColors = (h, s, l, index) => {
 
   // We want indexes output in Tailwind fashion: 600, 700, 800, 900, 950
   const tailwindName = index === 5 ? 950 : (index + 5) * 100;
-  const complimentary = getComplimentary(l);
+  const complimentary = getComplimentary(h,s,l);
   const hex = getHEX(h,s,l);
+  const rgb = getRGB(h,s,l, true);
 
   return { 
     name: tailwindName, 
     hsl: `hsl(${Math.ceil(h)}, ${Math.ceil(s)}%, ${Math.ceil(l)}%)`,
     hex: hex,
+    rgb: rgb,
     complimentaryColor: complimentary
   }
   };

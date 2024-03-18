@@ -40,6 +40,7 @@ export const PalettePicker = () => {
                             <span className="bg-white p-2">
                                 <p>{primaryPalette[item].name}</p>
                                 <p className="text-gray-400 text-xs">{primaryPalette[item].hex}</p>
+                                <p className="text-gray-400 text-xs">{primaryPalette[item].rgb}</p>
                                 <p className="text-gray-400 text-xs">{primaryPalette[item].hsl}</p>
                             </span>
                         </ColorContainer>
@@ -62,6 +63,7 @@ export const PalettePicker = () => {
                             <span className="bg-white p-2">
                                 <p>{secondaryPalette[item].name}</p>
                                 <p className="text-gray-400 text-xs">{secondaryPalette[item].hex}</p>
+                                <p className="text-gray-400 text-xs">{secondaryPalette[item].rgb}</p>
                                 <p className="text-gray-400 text-xs">{secondaryPalette[item].hsl}</p>
                             </span>
                         </ColorContainer>
@@ -88,7 +90,7 @@ const ColorSelectorWrapper = ({children}) => {
 
 const ColorContainer = ({children, item}) => {
     return (
-        <div style={{ background: item.hsl }} className="h-40 w-36 flex flex-col-reverse rounded shadow-md overflow-hidden relative">
+        <div style={{ background: item.hsl }} className="h-44 w-36 flex flex-col-reverse rounded shadow-md overflow-hidden relative">
             <span className="absolute top-2 right-2" style={{color: item.complimentaryColor}}>Complimentary</span>
             {children}
         </div>

@@ -4,7 +4,7 @@
 // 0% means a shade of gray, and 100% is the full color.
 
 import { getComplimentary } from "./getComplimentary";
-import { getHEX } from "./getHEX";
+import { getHEX, getRGB } from "./getHEX";
 
 export const getLightColors = (h, s, l, index) => {
     // index 0 is the base colour and should not change
@@ -37,12 +37,14 @@ export const getLightColors = (h, s, l, index) => {
     // Because the array is reversed it is reversed logic. 
     // We want indexes output in Tailwind fashion: 50, 100, 200, 300, 400, 500
     const tailwindName = index === 5 ? 50 : (5 - index) * 100;
-    const complimentary = getComplimentary(l);
+    const complimentary = getComplimentary(h,s,l);
+    const rgb = getRGB(h,s,l, true);
     const hex = getHEX(h,s,l);
 
     return { 
       name: tailwindName, 
       hsl: `hsl(${Math.ceil(h)}, ${Math.ceil(s)}%, ${Math.ceil(l)}%)`, 
       hex: hex,
+      rgb: rgb,
       complimentaryColor: complimentary}
   };
