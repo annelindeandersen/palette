@@ -1,18 +1,20 @@
+import { Palette } from '../interfaces/palette';
 "use client";
 
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { getPalette } from "../helpers/getPalette";
 import { getHSL } from "../helpers/getHSL";
+import { HEX } from '../interfaces/colors';
 
-export const PalettePicker = () => {
-    const [primaryColor, setPrimaryColor] = useState('#008591');
-    const [secondaryColor, setSecondaryColor] = useState('#FF97B7');
+export const PalettePicker = (): ReactNode => {
+    const [primaryColor, setPrimaryColor] = useState<HEX>('#008591');
+    const [secondaryColor, setSecondaryColor] = useState<HEX>('#FF97B7');
 
     const HSLPrimary = getHSL(primaryColor);
     const HSLSecondary = getHSL(secondaryColor);
 
-    const primaryPalette = getPalette(HSLPrimary);
-    const secondaryPalette = getPalette(HSLSecondary);
+    const primaryPalette: Palette[] = getPalette(HSLPrimary);
+    const secondaryPalette: Palette[] = getPalette(HSLSecondary);
 
   return (
     <>
@@ -24,7 +26,7 @@ export const PalettePicker = () => {
                 </ColorSelectorWrapper>
             </div>
             <PaletteWrapper>
-                {Object.keys(primaryPalette).map(item => 
+                {primaryPalette && Object.keys(primaryPalette).map((item) => 
                     <div key={primaryPalette[item].name}>
                         <ColorContainer item={primaryPalette[item]}>
                             <span className="bg-white p-2">
@@ -47,7 +49,7 @@ export const PalettePicker = () => {
                 </ColorSelectorWrapper>
             </div>
             <PaletteWrapper>
-                {Object.keys(secondaryPalette).map(item => 
+                {secondaryPalette && Object.keys(secondaryPalette).map(item => 
                     <div key={secondaryPalette[item].name}>
                         <ColorContainer item={secondaryPalette[item]}>
                             <span className="bg-white p-2">
@@ -65,19 +67,19 @@ export const PalettePicker = () => {
   )
 }
 
-const PaletteSection = ({children}) => {
+const PaletteSection = ({children}: {children: ReactNode}) => {
     return <section className="grid gap-4 items-center text-xs text-black">{children}</section>
 }
 
-const PaletteWrapper = ({children}) => {
+const PaletteWrapper = ({children}: {children: ReactNode}) => {
     return <div className="flex flex-wrap gap-3">{children}</div>
 }
 
-const ColorSelectorWrapper = ({children}) => {
+const ColorSelectorWrapper = ({children}: {children: ReactNode}) => {
     return <span className="rounded-full overflow-hidden h-10 w-10 flex items-center justify-center border-black border-2">{children}</span>
 }
 
-const ColorContainer = ({children, item}) => {
+const ColorContainer = ({children, item}: {children: ReactNode, item: Palette}) => {
     return (
         <div style={{ background: item.hsl }} className="h-44 w-36 flex flex-col-reverse rounded shadow-md overflow-hidden relative">
             <span className="absolute top-2 right-2" style={{color: item.complimentaryColor}}>Complimentary</span>

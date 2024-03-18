@@ -1,4 +1,6 @@
-export const getHSL = (hex) => {
+import { HEX, HSL } from "../interfaces/colors";
+
+export const getHSL = (hex: HEX): HSL => {
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 
     if(!result) {
@@ -32,5 +34,5 @@ export const getHSL = (hex) => {
     l = Math.round(l);
     h = Math.round(360*h);
 
-    return [h, s, l];
+    return {h, s, l};
 };

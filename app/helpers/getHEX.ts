@@ -1,4 +1,6 @@
-export const getRGB = (h, s, l, formatted) => {
+import { HSL, RGB } from "../interfaces/colors";
+
+export const getRGB = ({h, s, l}: HSL) => {
     // Convert hue to a value between 0 and 1
     h = h / 360;
     
@@ -34,17 +36,22 @@ export const getRGB = (h, s, l, formatted) => {
     g = Math.round(g * 255);
     b = Math.round(b * 255);
 
-    return formatted ? `rgb(${r}, ${g}, ${b})` : [r, g, b];
+    return {r, g, b};
+    // return formatted ? `rgb(${r}, ${g}, ${b})` : {r, g, b};
 }
 
-export const getHEX = (h, s, l) => {
-    const RGB = getRGB(h, s, l);
+export const formatRGB = ({r, g, b}: RGB) => {
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+export const getHEX = ({h, s, l}: HSL) => {
+    const RGB: RGB = getRGB({h, s, l});
 
     // Convert each RGB component to hexadecimal
-    const rgbToHex = (number) => {
+    const rgbToHex = (number: number) => {
         const hex = number.toString(16);
         return hex.length == 1 ? "0" + hex : hex; // Add leading zero if needed
     };
 
-    return `#${rgbToHex(RGB[0])}${rgbToHex(RGB[1])}${rgbToHex(RGB[2])}`;
+    return `#${rgbToHex(RGB.r)}${rgbToHex(RGB.g)}${rgbToHex(RGB.b)}`;
 }
