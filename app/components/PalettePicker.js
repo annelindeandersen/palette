@@ -14,16 +14,6 @@ export const PalettePicker = () => {
     const primaryPalette = getPalette(HSLPrimary);
     const secondaryPalette = getPalette(HSLSecondary);
 
-    const downloadPalette = () => {
-        const palette = {primaryPalette, secondaryPalette};
-        const paletteData ='data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(palette));
-        const download = document.createElement('palette');
-
-        download.setAttribute('href', paletteData);
-        download.setAttribute('download', 'Palette.json');
-        download.click();
-    }
-
   return (
     <>
         <PaletteSection>
@@ -71,7 +61,6 @@ export const PalettePicker = () => {
                 )}
             </PaletteWrapper>
         </PaletteSection>
-        <button onClick={downloadPalette} className="border shadow-md rounded text-gray-400 py-2 px-5 m-16">Download palette.json</button>
       </>
   )
 }
