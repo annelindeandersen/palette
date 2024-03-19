@@ -11,6 +11,6 @@ export const getComplimentary = ({h, s, l}: HSL): complimentaryColor => {
     const {r, g, b} = rgbColors;
     const luminance = getLuminance({r, g, b});
 
-    // if luminance is above 40%, text needs to be dark.
+    /** if luminance is above 40%, text needs to be dark. */
     return luminance > .4 ? complimentaryDark : complimentaryLight;
 }

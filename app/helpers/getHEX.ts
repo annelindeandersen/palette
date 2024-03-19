@@ -1,17 +1,17 @@
 import { HSL, RGB } from "../interfaces/colors";
 
 export const getRGB = ({h, s, l}: HSL) => {
-    // Convert hue to a value between 0 and 1
+    /** Convert hue to a value between 0 and 1 */
     h = h / 360;
     
-    // Convert saturation and lightness to values between 0 and 1
+    /** Convert saturation and lightness to values between 0 and 1 */
     s = s / 100;
     l = l / 100;
 
     let r, g, b;
 
     if (s === 0) {
-        // If saturation is 0, the color is grayscale (achromatic)
+        /** If saturation is 0, the color is grayscale (achromatic) */
         r = g = b = l;
     } else {
         const hueToRgb = (p, q, t) => {
@@ -31,13 +31,12 @@ export const getRGB = ({h, s, l}: HSL) => {
         b = hueToRgb(p, q, h - 1 / 3);
     }
 
-    // Convert RGB values to 0-255 range
+    /**  Convert RGB values to 0-255 range */
     r = Math.round(r * 255);
     g = Math.round(g * 255);
     b = Math.round(b * 255);
 
     return {r, g, b};
-    // return formatted ? `rgb(${r}, ${g}, ${b})` : {r, g, b};
 }
 
 export const formatRGB = ({r, g, b}: RGB) => {
@@ -47,10 +46,10 @@ export const formatRGB = ({r, g, b}: RGB) => {
 export const getHEX = ({h, s, l}: HSL) => {
     const RGB: RGB = getRGB({h, s, l});
 
-    // Convert each RGB component to hexadecimal
+    /** Convert each RGB component to hexadecimal */
     const rgbToHex = (number: number) => {
         const hex = number.toString(16);
-        return hex.length == 1 ? "0" + hex : hex; // Add leading zero if needed
+        return hex.length == 1 ? "0" + hex : hex; /** Add leading zero if needed */
     };
 
     return `#${rgbToHex(RGB.r)}${rgbToHex(RGB.g)}${rgbToHex(RGB.b)}`;
